@@ -1,3 +1,9 @@
+EX  - Task Manager Avanzato
+===
+## Consegna:
+Costruire un **Task Manager Avanzato**, un'app web che permette agli utenti di creare, modificare, organizzare ed elliminare task in modo intuitivo ed efficente.
+L'app dovrà supportare **filtri avanzati, ricerca ottimizzata, ordinamento e conferme di azione con modali**. Inoltre, dovrà **garantire un'esperienza fluida** con prestazioni ottimizzate.
+
 ### 📌 Milestone 1 - Setup e Routing
 Clonare il backend del progetto, impostare il frontend con Vite e configurare il routing con `react-router-dom`.
 
