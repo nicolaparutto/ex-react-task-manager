@@ -7,20 +7,48 @@ const TasksDataContext = createContext();
 const TasksProvider = ({ children }) => {
 	const apiUrl = import.meta.env.VITE_API_URL;
 
-	const [tasksList, setTasksLists] = useState([]);
-
-	// [GET] Chiamata per ricevere la lista delle task
-	const fetchTasks = async () => {
-		try {
-			const fetchResponse = await axios.get(`${apiUrl}/tasks`);
-			setTasksLists(fetchResponse.data)
-		} catch (error) {
-			console.error(error)
+	// HOOK personalizzato per gestire le tasks:
+	const useTasks = () => {
+		const [tasks, setTasks] = useState([])
+		// [GET] Chiamata per ricevere la lista delle task
+		const fetchTasks = async () => {
+			try {
+				const fetchResponse = await axios.get(`${apiUrl}/tasks`);
+				setTasks(fetchResponse.data)
+			} catch (error) {
+				console.error(error)
+			}
 		}
+		// [POST] Chiamata per aggiungere una task
+		const addTask = async () => {
+			try {
+
+			} catch (error) {
+
+			}
+		}
+		// [DELETE] Chiamata per rimuovere una task
+		const removeTask = async (id) => {
+			try {
+
+			} catch (error) {
+
+			}
+		}
+		// [PUT] Chiamata per modificare una task
+		const updateTask = async (id) => {
+			try {
+
+			} catch (error) {
+
+			}
+		}
+
+		return [tasks, fetchTasks, addTask, removeTask, updateTask]
 	}
 
 	return (
-		<TasksDataContext.Provider value={{ tasksList, fetchTasks }}>
+		<TasksDataContext.Provider value={{ useTasks }}>
 			{children}
 		</TasksDataContext.Provider>
 	)

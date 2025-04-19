@@ -4,8 +4,11 @@ import { useTasksDataContext } from "../context/GlobalContext";
 import Task from "../components/Task";
 
 function TaskList() {
+	// Importazione dell'hook personalizzato
+	const { useTasks } = useTasksDataContext()
 
-	const { tasksList, fetchTasks } = useTasksDataContext();
+	// Uso e destrutturazione dell'hook per estrarre le tasks e la funzione che le richiama:
+	const [tasks, fetchTasks] = useTasks()
 
 	// fetchTasks al caricamento del componente:
 	useEffect(() => {
@@ -19,7 +22,7 @@ function TaskList() {
 					<span>Titolo</span>
 					<span>Creata il:</span>
 				</div>
-				{tasksList.map(task => (
+				{tasks.map(task => (
 					<Task key={task.id} taskData={task} />
 				))}
 			</div>
