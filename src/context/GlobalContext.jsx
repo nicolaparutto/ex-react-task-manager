@@ -7,7 +7,7 @@ const TasksDataContext = createContext();
 const TasksProvider = ({ children }) => {
 	const apiUrl = import.meta.env.VITE_API_URL;
 
-	const [tasksList, setTasksLists] = useState();
+	const [tasksList, setTasksLists] = useState([]);
 
 	// [GET] Chiamata per ricevere la lista delle task
 	const fetchTasks = async () => {

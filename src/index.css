@@ -18,7 +18,7 @@ a {
 }
 
 /* utility */
-.contanier {
+.container {
   margin: 0 auto;
   max-width: 1200px;
 }
@@ -27,7 +27,7 @@ a {
   border: 1px dashed red;
 }
 
-
+/* header style */
 header {
   text-align: center;
   padding: 20px 0;
@@ -47,6 +47,59 @@ header {
           border-bottom: 2px solid green;
         }
       }
+    }
+  }
+}
+
+/* tasks-list-section style */
+.tasks-list {
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 20px;
+
+  .list-intestation {
+    border-bottom: 1px solid #000;
+    text-align: center;
+
+    span {
+      display: inline-block;
+    }
+
+    span:nth-child(1) {
+      width: 10%;
+      border-right: 1px solid #000;
+    }
+
+    span:nth-child(2) {
+      width: 70%;
+      border-right: 1px solid #000;
+    }
+
+    span:nth-child(3) {
+      width: 20%;
+    }
+  }
+
+  .task-row {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+
+    .task-status {
+      text-align: center;
+      padding: 10px;
+      height: 100%;
+      width: 10%;
+    }
+
+    .task-title {
+      margin-left: 10px;
+      width: 70%;
+      font-weight: bold;
+    }
+
+    .task-date {
+      width: 20%;
     }
   }
 }
