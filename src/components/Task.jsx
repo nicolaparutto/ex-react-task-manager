@@ -1,9 +1,9 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 
 function Task({ taskData }) {
-	const { title, description, status, createdAt } = taskData;
+	const { title, status, createdAt } = taskData;
 
-	// format date function
+	// Funzione per formattare la data:
 	function formatDateTimeLocale(isoString) {
 		const date = new Date(isoString);
 
@@ -21,7 +21,7 @@ function Task({ taskData }) {
 	}
 	const date = formatDateTimeLocale(createdAt)
 
-	// status color handle:
+	// Gestione dei colori dello status della task:
 	let toDoColor = "";
 	if (status === "To do") {
 		toDoColor = "red"
