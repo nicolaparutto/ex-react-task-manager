@@ -103,3 +103,64 @@ header {
     }
   }
 }
+
+form {
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 0 200px;
+
+  label {
+    display: block;
+
+    span {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    input {
+      padding: 10px;
+      max-width: 300px;
+    }
+
+    textarea {
+      width: 260px;
+      height: 150px;
+    }
+
+    select {
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .error-message {
+    font-size: 0.9rem;
+    color: red;
+  }
+
+  .confirm-message {
+    font-size: 0.9rem;
+    color: green;
+    margin-left: 10px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #037BFF;
+    color: #fff;
+
+    &:hover {
+      background-color: #0051a8;
+    }
+  }
+}
