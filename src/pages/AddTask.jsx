@@ -1,13 +1,18 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react";
+import { useTasksDataContext } from "../context/GlobalContext";
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
 
 function AddTask() {
+	// Custom Hook:
+	const { useTasks } = useTasksDataContext();
+	const { addTask, resultMessage } = useTasks();
 
+	// Variabili dati del form:
 	const [taskTitle, setTaskTitle] = useState("");
-	const descriptionRef = useRef();
-	const statusRef = useRef();
+	const descriptionRef = useRef("");
+	const statusRef = useRef("");
+	//Error message validazione in tempo reale:
 	const [errMessage, setErrMessage] = useState(null);
-	const [confirmMessage, setConfirmMessage] = useState(null);
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -15,9 +20,8 @@ function AddTask() {
 		const symbolsInTitle = symbols.split("").some((symbol) => {
 			return taskTitle.includes(symbol)
 		})
-		if (taskTitle.trim() === "" || symbolsInTitle) {
+		if (taskTitle.trim() == "" || symbolsInTitle) {
 			setErrMessage(`Il titolo della task non è valido, è obbligatorio inserire un titolo, e non può contenere simboli speciali come: ${symbols}`);
-			console.log(errMessage)
 			return;
 		} else {
 			// Costruzione dell'oggetto newTask
@@ -26,10 +30,20 @@ function AddTask() {
 				description: descriptionRef.current.value,
 				status: statusRef.current.value
 			}
-			console.log(newTask)
-			setConfirmMessage("Task aggiunta!")
+			// Richiamare la funzione per aggingere una task
+			addTask(newTask);
 		}
 	}
+
+	// Reset del form quando resultMessage.status è true
+	useEffect(() => {
+		if (resultMessage.status) {
+			setTaskTitle("");
+			descriptionRef.current.value = "";
+			statusRef.current.value = "To do";
+			setErrMessage("");
+		}
+	}, [resultMessage]);
 
 	return (
 		<section className="container">
@@ -55,8 +69,10 @@ function AddTask() {
 				</label>
 				<div>
 					<button type="submit" >Aggiungi Task</button>
-					{confirmMessage && (
-						<p className="confirm-message">{confirmMessage}</p>
+					{resultMessage && (
+						<p style={resultMessage.status ? { color: "green", fontSize: "0.9rem" } : { color: "red", fontSize: "0.9rem" }}>
+							{resultMessage.message}
+						</p>
 					)}
 				</div>
 			</form>

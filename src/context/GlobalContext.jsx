@@ -9,7 +9,11 @@ const TasksProvider = ({ children }) => {
 
 	// HOOK personalizzato per gestire le tasks:
 	const useTasks = () => {
-		const [tasks, setTasks] = useState([])
+		// ==STATE== lista tasks:
+		const [tasks, setTasks] = useState([]);
+		// ==STATE== messaggio di riusltato all'agiunta di nuove task:
+		const [resultMessage, setResultMessage] = useState({ message: "", status: null });
+
 		// [GET] Chiamata per ricevere la lista delle task
 		const fetchTasks = async () => {
 			try {
@@ -20,11 +24,24 @@ const TasksProvider = ({ children }) => {
 			}
 		}
 		// [POST] Chiamata per aggiungere una task
-		const addTask = async () => {
+		const addTask = async (newTask) => {
 			try {
-
+				const response = await axios.post(`${apiUrl}/tasks`, newTask, { headers: { 'content-Type': 'application/json' } })
+				if (response.data.success) {
+					setTasks(prev => [...prev, response.data.task])
+					setResultMessage({
+						message: "Task aggiunta",
+						status: true
+					});
+				} else {
+					setResultMessage({
+						message: "Errore durante l'aggiunta della task",
+						status: false
+					});
+					throw new Error(response.data.message);
+				}
 			} catch (error) {
-
+				console.error("Errore durante l'aggiunta della task:", error.message);
 			}
 		}
 		// [DELETE] Chiamata per rimuovere una task
@@ -44,7 +61,7 @@ const TasksProvider = ({ children }) => {
 			}
 		}
 
-		return [tasks, fetchTasks, addTask, removeTask, updateTask]
+		return { tasks, resultMessage, fetchTasks, addTask, removeTask, updateTask };
 	}
 
 	return (

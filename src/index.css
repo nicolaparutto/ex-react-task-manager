@@ -141,12 +141,6 @@ form {
     color: red;
   }
 
-  .confirm-message {
-    font-size: 0.9rem;
-    color: green;
-    margin-left: 10px;
-  }
-
   div {
     display: flex;
     align-items: center;
@@ -154,6 +148,7 @@ form {
 
   button {
     padding: 10px 15px;
+    margin-right: 10px;
     border: none;
     border-radius: 10px;
     background-color: #037BFF;

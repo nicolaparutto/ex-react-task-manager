@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTasksDataContext } from "../context/GlobalContext";
 
 import Task from "../components/Task";
 
 function TaskList() {
-	// Importazione dell'hook personalizzato
-	const { useTasks } = useTasksDataContext()
-
-	// Uso e destrutturazione dell'hook per estrarre le tasks e la funzione che le richiama:
-	const [tasks, fetchTasks] = useTasks()
+	// Custom Hook:
+	const { useTasks } = useTasksDataContext();
+	const { tasks, fetchTasks } = useTasks();
 
 	// fetchTasks al caricamento del componente:
 	useEffect(() => {
-		fetchTasks()
+		fetchTasks();
 	}, [])
 	return (
 		<section className="container">
