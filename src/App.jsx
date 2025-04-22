@@ -4,7 +4,7 @@ import { TasksProvider } from "./context/GlobalContext";
 import DefaultLayout from "./layouts/DefaultLayout";
 import TaskList from "./pages/TaskList";
 import AddTask from "./pages/AddTask";
-
+import TaskDetail from "./pages/TaskDetail";
 function App() {
   return (
     <TasksProvider>
@@ -13,6 +13,7 @@ function App() {
           <Route Component={DefaultLayout}>
             <Route path="/" Component={TaskList} />
             <Route path="/add-task" Component={AddTask} />
+            <Route path="/task-detail/:id" Component={TaskDetail} />
           </Route>
         </Routes>
       </BrowserRouter>

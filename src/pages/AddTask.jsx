@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useTasksDataContext } from "../context/GlobalContext";
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
 
@@ -11,19 +11,27 @@ function AddTask() {
 	const [taskTitle, setTaskTitle] = useState("");
 	const descriptionRef = useRef("");
 	const statusRef = useRef("");
-	//Error message validazione in tempo reale:
-	const [errMessage, setErrMessage] = useState(null);
+	const [errMessage, setErrMessage] = useState("");
+	console.log(statusRef);
+
+	// Validazioni titolo in tempo reale:
+	const titleHandle = useMemo(() => {
+		if (taskTitle.trim() == "") {
+			setErrMessage("È obbligatorio inserire un titolo")
+			return false;
+		}
+		if (symbols.split("").some(symbol => taskTitle.includes(symbol))) {
+			setErrMessage("Il titlo non può contenere caratteri speciali")
+			return false
+		}
+		setErrMessage("")
+		return true
+	}, [taskTitle])
+
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		// Validazioni titolo:
-		const symbolsInTitle = symbols.split("").some((symbol) => {
-			return taskTitle.includes(symbol)
-		})
-		if (taskTitle.trim() == "" || symbolsInTitle) {
-			setErrMessage(`Il titolo della task non è valido, è obbligatorio inserire un titolo, e non può contenere simboli speciali come: ${symbols}`);
-			return;
-		} else {
+		if (titleHandle) {
 			// Costruzione dell'oggetto newTask
 			const newTask = {
 				title: taskTitle,
@@ -32,6 +40,8 @@ function AddTask() {
 			}
 			// Richiamare la funzione per aggingere una task
 			addTask(newTask);
+		} else {
+			return
 		}
 	}
 
@@ -41,7 +51,6 @@ function AddTask() {
 			setTaskTitle("");
 			descriptionRef.current.value = "";
 			statusRef.current.value = "To do";
-			setErrMessage("");
 		}
 	}, [resultMessage]);
 
@@ -68,7 +77,7 @@ function AddTask() {
 					</select>
 				</label>
 				<div>
-					<button type="submit" >Aggiungi Task</button>
+					<button type="submit">Aggiungi Task</button>
 					{resultMessage && (
 						<p style={resultMessage.status ? { color: "green", fontSize: "0.9rem" } : { color: "red", fontSize: "0.9rem" }}>
 							{resultMessage.message}

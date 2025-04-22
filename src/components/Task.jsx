@@ -1,7 +1,8 @@
 import { memo } from "react";
+import { Link } from "react-router-dom";
 
 function Task({ taskData }) {
-	const { title, status, createdAt } = taskData;
+	const { id, title, status, createdAt } = taskData;
 
 	// Funzione per formattare la data:
 	function formatDateTimeLocale(isoString) {
@@ -22,7 +23,7 @@ function Task({ taskData }) {
 	const date = formatDateTimeLocale(createdAt)
 
 	// Gestione dei colori dello status della task:
-	let toDoColor = "";
+	let toDoColor;
 	if (status === "To do") {
 		toDoColor = "red"
 	} else if (status === "Doing") {
@@ -32,18 +33,19 @@ function Task({ taskData }) {
 	}
 
 	return (
-		<div className="task-row">
-			<div className="task-status" style={{ "backgroundColor": toDoColor }}>
-				<p>{status}</p>
+		<Link to={`/task-detail/${id}`}>
+			<div className="task-row">
+				<div className="task-status" style={{ "backgroundColor": toDoColor }}>
+					<p>{status}</p>
+				</div>
+				<div className="task-title">
+					<p>{title}</p>
+				</div>
+				<div className="task-date">
+					<p>{date.ora} || {date.data}</p>
+				</div>
 			</div>
-			<div className="task-title">
-				<p>{title}</p>
-			</div>
-			<div className="task-date">
-				<p>Data: {date.data}</p>
-				<p>Ora: {date.ora}</p>
-			</div>
-		</div>
+		</Link >
 	)
 }
 

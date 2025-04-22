@@ -85,6 +85,11 @@ header {
     display: flex;
     align-items: center;
 
+
+    &:hover {
+      background-color: #0000000e;
+    }
+
     .task-status {
       text-align: center;
       padding: 10px;
