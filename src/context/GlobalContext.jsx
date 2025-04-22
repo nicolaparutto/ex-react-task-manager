@@ -13,7 +13,6 @@ const TasksProvider = ({ children }) => {
 		const [tasks, setTasks] = useState([]);
 		// ==STATE== messaggio di riusltato all'agiunta di nuove task:
 		const [resultMessage, setResultMessage] = useState({ message: "", status: null });
-
 		// [GET] Chiamata per ricevere la lista delle task
 		const fetchTasks = async () => {
 			try {
@@ -23,6 +22,10 @@ const TasksProvider = ({ children }) => {
 				console.error(error)
 			}
 		}
+		// La funzione fetchTask viene immediatamente invocata al caricamento dell'app
+		useEffect(() => {
+			fetchTasks()
+		}, [])
 		// [POST] Chiamata per aggiungere una task
 		const addTask = async (newTask) => {
 			try {
@@ -61,7 +64,7 @@ const TasksProvider = ({ children }) => {
 			}
 		}
 
-		return { tasks, resultMessage, fetchTasks, addTask, removeTask, updateTask };
+		return { tasks, resultMessage, addTask, removeTask, updateTask };
 	}
 
 	return (

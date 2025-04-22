@@ -28,24 +28,24 @@ function AddTask() {
 		return true
 	}, [taskTitle])
 
-
+	// Funzione al submit del form:
 	function handleSubmit(e) {
 		e.preventDefault();
 		if (titleHandle) {
-			// Costruzione dell'oggetto newTask
+			// Costruzione dell'oggetto newTask:
 			const newTask = {
 				title: taskTitle,
 				description: descriptionRef.current.value,
 				status: statusRef.current.value
 			}
-			// Richiamare la funzione per aggingere una task
+			// Richiamare la funzione per aggingere una task:
 			addTask(newTask);
 		} else {
 			return
 		}
 	}
 
-	// Reset del form quando resultMessage.status è true
+	// Reset del form quando resultMessage.status è true:
 	useEffect(() => {
 		if (resultMessage.status) {
 			setTaskTitle("");

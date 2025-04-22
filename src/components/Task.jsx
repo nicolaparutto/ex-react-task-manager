@@ -1,26 +1,11 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-
+import formatDateTimeLocale from "../assets/functions/dateFormatter";
 function Task({ taskData }) {
 	const { id, title, status, createdAt } = taskData;
 
-	// Funzione per formattare la data:
-	function formatDateTimeLocale(isoString) {
-		const date = new Date(isoString);
-
-		const day = String(date.getDate()).padStart(2, '0');
-		const month = String(date.getMonth() + 1).padStart(2, '0');
-		const year = date.getFullYear();
-
-		const hours = String(date.getHours()).padStart(2, '0');
-		const minutes = String(date.getMinutes()).padStart(2, '0');
-
-		return {
-			data: `${day}/${month}/${year}`,
-			ora: `${hours}:${minutes}`
-		};
-	}
-	const date = formatDateTimeLocale(createdAt)
+	// Richiamo funzione di formattazione data:
+	const date = formatDateTimeLocale(createdAt);
 
 	// Gestione dei colori dello status della task:
 	let toDoColor;

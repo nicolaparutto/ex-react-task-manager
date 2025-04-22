@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useTasksDataContext } from "../context/GlobalContext";
 
 import Task from "../components/Task";
@@ -6,12 +5,8 @@ import Task from "../components/Task";
 function TaskList() {
 	// Custom Hook:
 	const { useTasks } = useTasksDataContext();
-	const { tasks, fetchTasks } = useTasks();
+	const { tasks } = useTasks();
 
-	// fetchTasks al caricamento del componente:
-	useEffect(() => {
-		fetchTasks();
-	}, [])
 	return (
 		<section className="container">
 			<div className="tasks-list">
