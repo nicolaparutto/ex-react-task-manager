@@ -1,9 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useTasksDataContext } from "../context/GlobalContext";
 import formatDateTimeLocale from "../assets/functions/dateFormatter";
+import Modal from "../components/Modal";
 
 function TaskDetail() {
 	const { id } = useParams();
+	const [show, setShow] = useState(false);
 
 	//Custom Hook:
 	const { useTasks } = useTasksDataContext();
@@ -31,10 +34,11 @@ function TaskDetail() {
 						<p>Descrizione: {task.description}</p>
 						<p>Status: {task.status}</p>
 						<p>Data: {date ? `${date.data} || ${date.ora}` : "Data non disponibile"}</p>
-						<button onClick={() => handleDelete(task.id)}>Ellimina Task</button>
+						<button onClick={() => setShow(true)}>Ellimina Task</button>
 					</>
 				)}
 			</div>
+			<Modal show={show} title="Eliminare la task definitivamente?" onConfirm={() => handleDelete(id)} onClose={() => setShow(false)} />
 		</section>
 	)
 }
