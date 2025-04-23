@@ -19,7 +19,7 @@ const TasksProvider = ({ children }) => {
 				const fetchResponse = await axios.get(`${apiUrl}/tasks`);
 				setTasks(fetchResponse.data)
 			} catch (error) {
-				console.error(error)
+				console.error("Errore durante il caricamento delle task:", error)
 			}
 		}
 		// La funzione fetchTask viene immediatamente invocata al caricamento dell'app
@@ -73,11 +73,32 @@ const TasksProvider = ({ children }) => {
 			}
 		}
 		// [PUT] Chiamata per modificare una task
-		const updateTask = async (taskId) => {
+		const updateTask = async (updatedTask, taskId) => {
 			try {
-
+				const response = await axios.put(`${apiUrl}/tasks/${taskId}`, updatedTask, { headers: { 'content-Type': 'application/json' } });
+				if (response.data.success) {
+					setTasks(prev => {
+						prev.map(task => {
+							return task.id === taskId ? { ...task, ...response.data.task } : task
+						})
+					})
+					setResultMessage({
+						message: "Task aggiornata con successo",
+						status: true
+					})
+				} else {
+					setResultMessage({
+						message: "Errore durante l'aggiornamento della task",
+						status: false,
+					});
+					throw new Error(response.data.message);
+				}
 			} catch (error) {
-
+				console.error("Errore durante l'aggiornamento della task:", error.message);
+				setResultMessage({
+					message: "Errore durante l'aggiornamento della task",
+					status: false,
+				});
 			}
 		}
 
