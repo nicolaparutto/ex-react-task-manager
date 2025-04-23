@@ -109,6 +109,7 @@ header {
   }
 }
 
+/* add task form style */
 form {
   border: 1px solid #000;
   border-radius: 20px;
@@ -161,6 +162,37 @@ form {
 
     &:hover {
       background-color: #0051a8;
+    }
+  }
+}
+
+/* task-details section style */
+.taskdetail {
+  margin: 0 auto;
+  width: 400px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #FF0A00;
+    color: #fff;
+
+    &:hover {
+      background-color: #a40500;
     }
   }
 }

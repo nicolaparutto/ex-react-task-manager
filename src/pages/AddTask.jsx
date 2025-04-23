@@ -12,7 +12,6 @@ function AddTask() {
 	const descriptionRef = useRef("");
 	const statusRef = useRef("");
 	const [errMessage, setErrMessage] = useState("");
-	console.log(statusRef);
 
 	// Validazioni titolo in tempo reale:
 	const titleHandle = useMemo(() => {

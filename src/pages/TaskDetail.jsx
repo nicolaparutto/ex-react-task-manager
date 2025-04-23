@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useTasksDataContext } from "../context/GlobalContext";
 import formatDateTimeLocale from "../assets/functions/dateFormatter";
 
@@ -7,7 +7,7 @@ function TaskDetail() {
 
 	//Custom Hook:
 	const { useTasks } = useTasksDataContext();
-	const { tasks } = useTasks();
+	const { tasks, removeTask } = useTasks();
 
 	// Trovo la task selezionata:
 	const task = tasks.find(task => task.id === parseInt(id));
@@ -15,23 +15,26 @@ function TaskDetail() {
 	// Richiamo funzione di formattazione data:
 	const date = task ? formatDateTimeLocale(task?.createdAt) : null;
 
+	const navigate = useNavigate();
 	// Funzione al click del bottone "Ellimina Task":
 	function handleDelete(taskId) {
-		console.log(`Ellimino Task con id: ${taskId}`)
+		removeTask(taskId);
+		alert("Taks eliminata con successo");
+		navigate("/");
 	}
 	return (
-		<section>
-			{task ? (
-				<>
-					<h1>Titolo: {task.title}</h1>
-					<p>Descrizione: {task.description}</p>
-					<p>Status: {task.status}</p>
-					<p>Data: {date ? `${date.data} || ${date.ora}` : "Data non disponibile"}</p>
-					<button onClick={() => handleDelete(task.id)}>Ellimina Task</button>
-				</>
-			) : (
-				<p>Task non trovata</p>
-			)}
+		<section className="container">
+			<div className="taskdetail">
+				{task && (
+					<>
+						<h1>{task.title}</h1>
+						<p>Descrizione: {task.description}</p>
+						<p>Status: {task.status}</p>
+						<p>Data: {date ? `${date.data} || ${date.ora}` : "Data non disponibile"}</p>
+						<button onClick={() => handleDelete(task.id)}>Ellimina Task</button>
+					</>
+				)}
+			</div>
 		</section>
 	)
 }

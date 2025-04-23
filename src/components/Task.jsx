@@ -30,7 +30,7 @@ function Task({ taskData }) {
 					<p>{date.ora} || {date.data}</p>
 				</div>
 			</div>
-		</Link >
+		</Link>
 	)
 }
 

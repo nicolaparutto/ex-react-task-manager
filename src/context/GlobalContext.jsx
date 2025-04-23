@@ -48,15 +48,32 @@ const TasksProvider = ({ children }) => {
 			}
 		}
 		// [DELETE] Chiamata per rimuovere una task
-		const removeTask = async (id) => {
+		const removeTask = async (taskId) => {
 			try {
-
+				const response = await axios.delete(`${apiUrl}/tasks/${taskId}`);
+				if (response.data.success) {
+					setTasks(prev => prev.filter(task => task.id !== taskId))
+					setResultMessage({
+						message: "Task eliminata con successo",
+						status: true,
+					});
+				} else {
+					setResultMessage({
+						message: "Errore durante l'eliminazione della task",
+						status: false
+					});
+					throw new Error(response.data.message);
+				}
 			} catch (error) {
-
+				console.error("Errore durante l'eliminazione della task:", error.message);
+				setResultMessage({
+					message: "Errore durante l'eliminazione della task",
+					status: false
+				});
 			}
 		}
 		// [PUT] Chiamata per modificare una task
-		const updateTask = async (id) => {
+		const updateTask = async (taskId) => {
 			try {
 
 			} catch (error) {
