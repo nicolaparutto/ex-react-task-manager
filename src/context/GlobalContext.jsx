@@ -28,42 +28,24 @@ const TasksProvider = ({ children }) => {
 		}, [])
 		// [POST] Chiamata per aggiungere una task
 		const addTask = async (newTask) => {
-			try {
-				const response = await axios.post(`${apiUrl}/tasks`, newTask, { headers: { 'content-Type': 'application/json' } })
-				if (response.data.success) {
-					setTasks(prev => [...prev, response.data.task])
-					setResultMessage({
-						message: "Task aggiunta",
-						status: true
-					});
-				} else {
-					setResultMessage({
-						message: "Errore durante l'aggiunta della task",
-						status: false
-					});
-					throw new Error(response.data.message);
-				}
-			} catch (error) {
-				console.error("Errore durante l'aggiunta della task:", error.message);
+			const response = await axios.post(`${apiUrl}/tasks`, newTask, { headers: { 'content-Type': 'application/json' } })
+			if (response.data.success) {
+				setTasks(prev => [...prev, response.data.task])
+				setResultMessage({
+					message: "Task aggiunta",
+					status: true
+				});
+			}
+			if (!response.data.success) {
+				throw new Error(response.data.message)
 			}
 		}
 		// [DELETE] Chiamata per rimuovere una task
 		const removeTask = async (taskId) => {
 			try {
 				const response = await axios.delete(`${apiUrl}/tasks/${taskId}`);
-				if (response.data.success) {
-					setTasks(prev => prev.filter(task => task.id !== taskId))
-					setResultMessage({
-						message: "Task eliminata con successo",
-						status: true,
-					});
-				} else {
-					setResultMessage({
-						message: "Errore durante l'eliminazione della task",
-						status: false
-					});
-					throw new Error(response.data.message);
-				}
+				console.log(response);
+
 			} catch (error) {
 				console.error("Errore durante l'eliminazione della task:", error.message);
 				setResultMessage({
@@ -78,7 +60,7 @@ const TasksProvider = ({ children }) => {
 				const response = await axios.put(`${apiUrl}/tasks/${taskId}`, updatedTask, { headers: { 'content-Type': 'application/json' } });
 				if (response.data.success) {
 					setTasks(prev => {
-						prev.map(task => {
+						return prev.map(task => {
 							return task.id === taskId ? { ...task, ...response.data.task } : task
 						})
 					})
@@ -86,12 +68,6 @@ const TasksProvider = ({ children }) => {
 						message: "Task aggiornata con successo",
 						status: true
 					})
-				} else {
-					setResultMessage({
-						message: "Errore durante l'aggiornamento della task",
-						status: false,
-					});
-					throw new Error(response.data.message);
 				}
 			} catch (error) {
 				console.error("Errore durante l'aggiornamento della task:", error.message);
@@ -102,7 +78,7 @@ const TasksProvider = ({ children }) => {
 			}
 		}
 
-		return { tasks, resultMessage, addTask, removeTask, updateTask };
+		return { tasks, resultMessage, setResultMessage, addTask, removeTask, updateTask };
 	}
 
 	return (

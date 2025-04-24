@@ -5,40 +5,48 @@ const symbols = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
 function AddTask() {
 	// Custom Hook:
 	const { useTasks } = useTasksDataContext();
-	const { addTask, resultMessage } = useTasks();
+	const { addTask, resultMessage, setResultMessage } = useTasks();
 
 	// Variabili dati del form:
 	const [taskTitle, setTaskTitle] = useState("");
 	const descriptionRef = useRef("");
 	const statusRef = useRef("");
-	const [errMessage, setErrMessage] = useState("");
+	const [inputErrMessage, setInputErrMessage] = useState("");
 
 	// Validazioni titolo in tempo reale:
 	const titleHandle = useMemo(() => {
 		if (taskTitle.trim() == "") {
-			setErrMessage("È obbligatorio inserire un titolo")
+			setInputErrMessage("È obbligatorio inserire un titolo")
 			return false;
 		}
 		if (symbols.split("").some(symbol => taskTitle.includes(symbol))) {
-			setErrMessage("Il titlo non può contenere caratteri speciali")
+			setInputErrMessage("Il titlo non può contenere caratteri speciali")
 			return false
 		}
-		setErrMessage("")
+		setInputErrMessage("")
 		return true
 	}, [taskTitle])
 
 	// Funzione al submit del form:
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
 		if (titleHandle) {
 			// Costruzione dell'oggetto newTask:
 			const newTask = {
-				title: taskTitle,
+				title: taskTitle.trim(),
 				description: descriptionRef.current.value,
 				status: statusRef.current.value
 			}
 			// Richiamare la funzione per aggingere una task:
-			addTask(newTask);
+			try {
+				await addTask(newTask)
+			} catch (error) {
+				console.error(error.message)
+				setResultMessage({
+					message: "Errore durante la creazione della task",
+					status: false
+				})
+			}
 		} else {
 			return
 		}
@@ -60,8 +68,8 @@ function AddTask() {
 					<span>Titolo della task</span>
 					<input type="text" name="name" value={taskTitle} onChange={(e) => setTaskTitle(e.target.value)} />
 				</label>
-				{errMessage && (
-					<p className="error-message">{errMessage}</p>
+				{inputErrMessage && (
+					<p className="error-message">{inputErrMessage}</p>
 				)}
 				<label>
 					<span>Descrizione</span>
