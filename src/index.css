@@ -20,7 +20,7 @@ a {
 /* utility */
 .container {
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1000px;
 }
 
 .debug {
@@ -147,21 +147,23 @@ form {
     color: red;
   }
 
-  div {
+  .form-btn {
+    text-align: right;
     display: flex;
+    justify-content: space-around;
     align-items: center;
-  }
 
-  button {
-    padding: 10px 15px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 10px;
-    background-color: #037BFF;
-    color: #fff;
+    button {
+      padding: 10px 15px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: #037BFF;
+      color: #fff;
 
-    &:hover {
-      background-color: #0051a8;
+      &:hover {
+        background-color: #0051a8;
+      }
     }
   }
 }
