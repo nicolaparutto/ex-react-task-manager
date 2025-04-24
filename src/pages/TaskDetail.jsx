@@ -20,10 +20,14 @@ function TaskDetail() {
 
 	const navigate = useNavigate();
 	// Funzione al click del bottone "Ellimina Task":
-	function handleDelete(taskId) {
-		removeTask(taskId);
-		alert("Taks eliminata con successo");
-		navigate("/");
+	async function handleDelete(taskId) {
+		try {
+			await removeTask(taskId);
+			alert("Task eliminata con successo");
+			navigate("/");
+		} catch (error) {
+			alert(error.message);
+		}
 	}
 	return (
 		<section className="container">
