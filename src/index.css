@@ -63,11 +63,17 @@ header {
 
     span {
       display: inline-block;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0000000e;
+      }
     }
 
     span:nth-child(1) {
       width: 10%;
       border-right: 1px solid #000;
+
     }
 
     span:nth-child(2) {
