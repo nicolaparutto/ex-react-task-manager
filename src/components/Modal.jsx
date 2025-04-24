@@ -12,7 +12,7 @@ function Modal({
 		<div className="modal-container">
 			<div className="modal">
 				<h3>{title}</h3>
-				<p>{content}</p>
+				<div>{content}</div>
 				<button className="modal-btn confirm" onClick={onConfirm}>{confirmText}</button>
 				<button className="modal-btn cancel" onClick={onClose}>Annulla</button>
 			</div>

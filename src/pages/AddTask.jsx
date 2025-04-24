@@ -37,7 +37,7 @@ function AddTask() {
 				description: descriptionRef.current.value,
 				status: statusRef.current.value
 			}
-			// Richiamare la funzione per aggingere una task:
+			// Richiamo funzione per aggingere una task:
 			try {
 				await addTask(newTask)
 			} catch (error) {

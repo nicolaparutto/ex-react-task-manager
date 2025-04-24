@@ -54,25 +54,16 @@ const TasksProvider = ({ children }) => {
 		}
 		// [PUT] Chiamata per modificare una task
 		const updateTask = async (updatedTask, taskId) => {
-			try {
-				const response = await axios.put(`${apiUrl}/tasks/${taskId}`, updatedTask, { headers: { 'content-Type': 'application/json' } });
-				if (response.data.success) {
-					setTasks(prev => {
-						return prev.map(task => {
-							return task.id === taskId ? { ...task, ...response.data.task } : task
-						})
+			const response = await axios.put(`${apiUrl}/tasks/${taskId}`, updatedTask, { headers: { 'content-Type': 'application/json' } });
+			if (response.data.success) {
+				setTasks(prev => {
+					return prev.map(task => {
+						return task.id === taskId ? { ...task, ...response.data.task } : task
 					})
-					setResultMessage({
-						message: "Task aggiornata con successo",
-						status: true
-					})
-				}
-			} catch (error) {
-				console.error("Errore durante l'aggiornamento della task:", error.message);
-				setResultMessage({
-					message: "Errore durante l'aggiornamento della task",
-					status: false,
-				});
+				})
+			}
+			if (!response.data.success) {
+				throw new Error(response.data.message)
 			}
 		}
 

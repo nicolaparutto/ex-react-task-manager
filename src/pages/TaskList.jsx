@@ -5,7 +5,7 @@ import Task from "../components/Task";
 function TaskList() {
 	// Custom Hook:
 	const { useTasks } = useTasksDataContext();
-	const { tasks, updateTask } = useTasks();
+	const { tasks } = useTasks();
 
 	return (
 		<section className="container">
