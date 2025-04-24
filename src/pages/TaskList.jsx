@@ -1,14 +1,19 @@
 import { useTasksDataContext } from "../context/GlobalContext";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
+import debounce from "../assets/functions/debounceFuction";
 import Task from "../components/Task";
-
 function TaskList() {
 	// Custom Hook:
 	const { useTasks } = useTasksDataContext();
 	const { tasks } = useTasks();
 
+	const [searchQuery, setSearchedQuery] = useState("");
 	const [sortBy, setSortBy] = useState("default"); //criterio di ordinamento (title, status, createdAt)
 	const [sortOrder, setSortOrder] = useState(1); //direzione (1 per crescente, -1 per decrescente)
+
+	const debounceFindSearched = useCallback(
+		debounce(setSearchedQuery, 500)
+		, [])
 
 	function handleSort(selected) {
 		if (sortBy === selected) {
@@ -20,12 +25,13 @@ function TaskList() {
 	}
 	const sortIcon = sortOrder === 1 ? "▽" : "△";
 
-	const sortedTasks = useMemo(() => {
-		if (sortBy === "default") {
-			return [...tasks];
-		} else {
-			let comparison;
-			return [...tasks].sort((taskA, taskB) => {
+	const searchedAndSortedTasks = useMemo(() => {
+		let comparison;
+		return [...tasks]
+			.filter(task => {
+				return task.title.toLowerCase().includes(searchQuery.toLowerCase())
+			})
+			.sort((taskA, taskB) => {
 				if (sortBy === "title") {
 					comparison = taskA.title.localeCompare(taskB.title)
 				}
@@ -38,21 +44,20 @@ function TaskList() {
 				}
 				return sortOrder * comparison
 			})
-		}
-		return [...tasks];
-	}, [tasks, sortBy, sortOrder]);
-
-
+	}, [tasks, sortBy, sortOrder, searchQuery]);
 
 	return (
 		<section className="container">
+			<div className="tasks-search-bar">
+				<input type="text" placeholder="Trova la task.." onChange={(e) => debounceFindSearched(e.target.value)} />
+			</div>
 			<div className="tasks-list">
 				<div className="list-intestation">
 					<span onClick={() => handleSort("status")}>Stato {sortBy === "status" && sortIcon}</span>
 					<span onClick={() => handleSort("title")}>Titolo {sortBy === "title" && sortIcon}</span>
 					<span onClick={() => handleSort("createdAt")}>Creata il {sortBy === "createdAt" && sortIcon}</span>
 				</div>
-				{sortedTasks?.map(task => (
+				{searchedAndSortedTasks?.map(task => (
 					<Task key={task.id} taskData={task} />
 				))}
 			</div>
