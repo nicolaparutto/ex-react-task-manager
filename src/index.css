@@ -112,6 +112,11 @@ header {
   }
 }
 
+.no-task-finded {
+  text-align: center;
+  margin: 50px;
+}
+
 .tasks-list {
   border: 2px solid var(--col-green);
   border-radius: 20px;

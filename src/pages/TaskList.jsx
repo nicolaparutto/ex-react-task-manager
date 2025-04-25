@@ -52,16 +52,24 @@ function TaskList() {
 				<input type="text" placeholder="Cerca una task..." onChange={(e) => debounceFindSearched(e.target.value)} />
 			</div>
 			<div className="tasks-list">
-				<div className="list-intestation">
-					<span onClick={() => handleSort("status")}>Stato {sortBy === "status" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
-					<span onClick={() => handleSort("title")}>Titolo {sortBy === "title" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
-					<span onClick={() => handleSort("createdAt")}>Creata il {sortBy === "createdAt" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
-				</div>
-				<div className="list">
-					{searchedAndSortedTasks?.map(task => (
-						<Task key={task.id} taskData={task} />
-					))}
-				</div>
+				{tasks.length > 0 ? <>
+					<div className="list-intestation">
+						<span onClick={() => handleSort("status")}>Stato {sortBy === "status" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
+						<span onClick={() => handleSort("title")}>Titolo {sortBy === "title" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
+						<span onClick={() => handleSort("createdAt")}>Creata il {sortBy === "createdAt" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
+					</div>
+					<div className="list">
+						{searchedAndSortedTasks?.map(task => (
+							<Task key={task.id} taskData={task} />
+						))}
+					</div>
+				</> :
+					<>
+						<div className="no-task-finded">
+							<p>Non hai ancora nessuna task</p>
+						</div>
+					</>
+				}
 			</div>
 		</section >
 	)
