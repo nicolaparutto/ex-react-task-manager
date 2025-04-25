@@ -9,8 +9,6 @@ function TaskDetail() {
 	const { id } = useParams();
 	const [show, setShow] = useState(false);
 	const [showEditTask, setShowEditTask] = useState(false);
-
-
 	const [taskToModify, setTaskToModify] = useState({});
 
 	//Custom Hook:
@@ -22,6 +20,16 @@ function TaskDetail() {
 
 	// Richiamo funzione di formattazione data:
 	const date = task ? formatDateTimeLocale(task?.createdAt) : null;
+
+	// Gestione dei colori dello status della task:
+	let toDoColor;
+	if (task?.status === "To do") {
+		toDoColor = "#f74c46"
+	} else if (task?.status === "Doing") {
+		toDoColor = "#efef63"
+	} else {
+		toDoColor = "#4eb94e"
+	}
 
 	const navigate = useNavigate();
 	// Funzione al click del bottone "Ellimina":
@@ -36,19 +44,28 @@ function TaskDetail() {
 	}
 
 	return (
-		<section className="container">
+		<section>
 			<div className="taskdetail">
 				{task && (
 					<>
-						<h1>{task.title}</h1>
-						<p>Descrizione: {task.description}</p>
-						<p>Status: {task.status}</p>
-						<p>Data: {date ? `${date.data} || ${date.ora}` : "Data non disponibile"}</p>
-						<button onClick={() => setShow(true)} className="delete-btn">Ellimina</button>
-						<button onClick={() => {
-							setShowEditTask(true)
-							setTaskToModify(task)
-						}} className="modify-btn">Modifica</button>
+						<div className="task-info">
+							<div className="task-intestation">
+								<h2>Task: <span>{task.title}</span></h2>
+								<div className="status" style={{ "backgroundColor": toDoColor }}>{task.status}</div>
+							</div>
+							<div className="task-description">
+								<p><span>Data:</span> {`${date.ora} ${date.month}/${date.year}`}</p>
+								<span>Descrizione:</span>
+								<p>{task.description}</p>
+							</div>
+						</div>
+						<div className="task-handle">
+							<button onClick={() => {
+								setShowEditTask(true)
+								setTaskToModify(task)
+							}} className="modify-btn">Modifica</button>
+							<button onClick={() => setShow(true)} className="delete-btn">Ellimina</button>
+						</div>
 					</>
 				)}
 			</div>

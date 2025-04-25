@@ -23,7 +23,7 @@ function TaskList() {
 			setSortOrder(1)
 		}
 	}
-	const sortIcon = sortOrder === 1 ? "▽" : "△";
+	const sortIcon = sortOrder === 1 ? <i class="fa-solid fa-caret-down"></i> : <i class="fa-solid fa-caret-up"></i>;
 
 	const searchedAndSortedTasks = useMemo(() => {
 		let comparison;
@@ -47,19 +47,21 @@ function TaskList() {
 	}, [tasks, sortBy, sortOrder, searchQuery]);
 
 	return (
-		<section className="container">
+		<section>
 			<div className="tasks-search-bar">
-				<input type="text" placeholder="Trova la task.." onChange={(e) => debounceFindSearched(e.target.value)} />
+				<input type="text" placeholder="Cerca una task..." onChange={(e) => debounceFindSearched(e.target.value)} />
 			</div>
 			<div className="tasks-list">
 				<div className="list-intestation">
-					<span onClick={() => handleSort("status")}>Stato {sortBy === "status" && sortIcon}</span>
-					<span onClick={() => handleSort("title")}>Titolo {sortBy === "title" && sortIcon}</span>
-					<span onClick={() => handleSort("createdAt")}>Creata il {sortBy === "createdAt" && sortIcon}</span>
+					<span onClick={() => handleSort("status")}>Stato {sortBy === "status" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
+					<span onClick={() => handleSort("title")}>Titolo {sortBy === "title" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
+					<span onClick={() => handleSort("createdAt")}>Creata il {sortBy === "createdAt" ? sortIcon : <i className="fa-solid fa-sort"></i>}</span>
 				</div>
-				{searchedAndSortedTasks?.map(task => (
-					<Task key={task.id} taskData={task} />
-				))}
+				<div className="list">
+					{searchedAndSortedTasks?.map(task => (
+						<Task key={task.id} taskData={task} />
+					))}
+				</div>
 			</div>
 		</section >
 	)

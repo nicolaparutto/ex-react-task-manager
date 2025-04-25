@@ -84,12 +84,12 @@ function AddTask() {
 					</select>
 				</label>
 				<div className="form-btn">
-					<button type="submit">Aggiungi Task</button>
 					{resultMessage && (
 						<p style={resultMessage.status ? { color: "green", fontSize: "0.9rem" } : { color: "red", fontSize: "0.9rem" }}>
 							{resultMessage.message}
 						</p>
 					)}
+					<button type="submit">Aggiungi Task</button>
 				</div>
 			</form>
 		</section>

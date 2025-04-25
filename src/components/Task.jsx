@@ -10,11 +10,11 @@ function Task({ taskData }) {
 	// Gestione dei colori dello status della task:
 	let toDoColor;
 	if (status === "To do") {
-		toDoColor = "red"
+		toDoColor = "#f74c46"
 	} else if (status === "Doing") {
-		toDoColor = "yellow"
+		toDoColor = "#efef63"
 	} else {
-		toDoColor = "green"
+		toDoColor = "#4eb94e"
 	}
 
 	return (
@@ -28,7 +28,7 @@ function Task({ taskData }) {
 						<p>{title}</p>
 					</div>
 					<div className="task-date">
-						<p>{date.ora} || {date.data}</p>
+						<p><span>{date.ora}</span>{date.month}</p>
 					</div>
 				</div>
 			</Link>

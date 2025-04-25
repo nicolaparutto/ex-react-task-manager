@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=National+Park:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chewy&family=National+Park:wght@200..800&display=swap');
 
 /* css reset */
 * {
@@ -7,9 +7,25 @@
   box-sizing: border-box;
 }
 
+/* main colors */
+:root {
+  --col-yellow: #f6bd60;
+  --col-white: #f7ede2;
+  --col-light-pink: #f5cac3;
+  --col-dark-pink: #f28482;
+  --col-green: #84a59d;
+  --col-blue: #6eaae2;
+  --col-dark-blue: #4a8cca;
+}
+
 /* default css */
 body {
   font-family: "National Park", sans-serif;
+  background-color: var(--col-light-pink);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
@@ -18,33 +34,64 @@ a {
 }
 
 /* utility */
-.container {
-  margin: 0 auto;
-  max-width: 1000px;
-}
-
 .debug {
   border: 1px dashed red;
 }
 
+.main-container {
+  width: 700px;
+  height: 700px;
+  background-color: var(--col-white);
+  padding: 20px;
+  border-radius: 30px;
+  border: 3px dashed var(--col-dark-pink);
+  box-shadow: 10px 10px 5px var(--col-dark-pink);
+}
+
 /* header style */
 header {
-  text-align: center;
-  padding: 20px 0;
+  h1 {
+    font-family: "Chewy", system-ui;
+    font-size: 2.5rem;
+    color: var(--col-blue);
+  }
 
   nav {
-    margin-top: 15px;
+    margin: 30px 40px;
 
-    ul {
+    div {
       display: flex;
-      justify-content: center;
-      list-style: none;
+      justify-content: space-between;
+      align-items: center;
 
-      li {
-        margin: 0 20px;
+      .home-link {
+        a {
+          font-size: 1.2rem;
+          border-radius: 10px;
+          padding: 3px 8px;
+          background-color: var(--col-light-pink);
+          color: var(--col-white);
+
+          &:hover {
+            background-color: var(--col-dark-pink);
+          }
+        }
 
         .active {
-          border-bottom: 2px solid green;
+          background-color: var(--col-dark-pink);
+        }
+      }
+
+      .addtask-link {
+        a {
+          background-color: var(--col-blue);
+          padding: 10px 14px;
+          border-radius: 100%;
+          color: #fff;
+
+          &:hover {
+            background-color: var(--col-dark-blue);
+          }
         }
       }
     }
@@ -57,6 +104,8 @@ header {
   margin: 30px 0;
 
   input {
+    font-size: 0.9rem;
+    border: 2px dashed var(--col-green);
     border-radius: 10px;
     padding: 10px;
     width: 300px;
@@ -64,32 +113,35 @@ header {
 }
 
 .tasks-list {
-  border: 1px solid #000;
+  border: 2px solid var(--col-green);
   border-radius: 20px;
   padding: 20px;
+  max-height: 445px;
 
   .list-intestation {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--col-dark-blue);
     text-align: center;
+    position: static;
 
     span {
       display: inline-block;
       cursor: pointer;
+      color: var(--col-dark-blue);
+      padding: 5px;
 
       &:hover {
-        background-color: #0000000e;
+        background-color: var(--col-light-pink);
       }
     }
 
     span:nth-child(1) {
-      width: 10%;
-      border-right: 1px solid #000;
-
+      width: 12%;
+      border-right: 1px solid var(--col-dark-blue);
     }
 
     span:nth-child(2) {
-      width: 70%;
-      border-right: 1px solid #000;
+      width: 68%;
+      border-right: 1px solid var(--col-dark-blue);
     }
 
     span:nth-child(3) {
@@ -97,41 +149,129 @@ header {
     }
   }
 
+  .list {
+    overflow: auto;
+    max-height: 388px;
+  }
+
   .task-row {
     margin: 10px 0;
     display: flex;
     align-items: center;
-
+    background-color: #e7e6e6;
+    border-radius: 10px;
+    overflow: hidden;
 
     &:hover {
-      background-color: #0000000e;
+      background-color: #e0e0e0;
     }
 
     .task-status {
       text-align: center;
       padding: 10px;
       height: 100%;
-      width: 10%;
+      width: 12%;
+
     }
 
     .task-title {
       margin-left: 10px;
-      width: 70%;
-      font-weight: bold;
+      width: 68%;
     }
 
     .task-date {
       width: 20%;
+      text-align: center;
+
+      p {
+        font-size: 0.9rem;
+        color: #363636;
+
+        span {
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+/* task-details section style */
+.taskdetail {
+  border: 2px solid var(--col-green);
+  border-radius: 20px;
+  padding: 20px;
+
+  .task-info {
+    .task-intestation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      .status {
+        width: 80px;
+        text-align: center;
+        padding: 10px 20px;
+        border-radius: 20px;
+      }
+
+      h2 {
+        span {
+          font-weight: 400;
+        }
+      }
+    }
+
+    .task-description {
+      margin-bottom: 20px;
+
+      span {
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      p {
+        word-wrap: break-word;
+      }
+    }
+  }
+
+  .task-handle {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .delete-btn {
+      background-color: #F74B46;
+
+      &:hover {
+        background-color: #b2312c;
+      }
+    }
+
+    .modify-btn {
+      background-color: var(--col-blue);
+
+      &:hover {
+        background-color: var(--col-dark-blue);
+      }
     }
   }
 }
 
 /* add task form style */
 form {
-  border: 1px solid #000;
+  border: 2px solid var(--col-green);
   border-radius: 20px;
   padding: 20px;
-  margin: 0 200px;
 
   label {
     display: block;
@@ -146,16 +286,22 @@ form {
     input {
       padding: 10px;
       max-width: 300px;
+      border: 2px solid var(--col-green);
+      border-radius: 10px;
     }
 
     textarea {
       width: 260px;
       height: 150px;
+      border: 2px solid var(--col-green);
+      border-radius: 10px;
     }
 
     select {
       padding: 10px;
       margin-bottom: 20px;
+      border: 2px solid var(--col-green);
+      border-radius: 10px;
     }
   }
 
@@ -167,7 +313,7 @@ form {
   .form-btn {
     text-align: right;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     button {
@@ -175,56 +321,12 @@ form {
       margin-right: 10px;
       border: none;
       border-radius: 10px;
-      background-color: #037BFF;
+      background-color: var(--col-blue);
       color: #fff;
 
       &:hover {
-        background-color: #0051a8;
+        background-color: var(--col-dark-blue);
       }
-    }
-  }
-}
-
-/* task-details section style */
-.taskdetail {
-  margin: 0 auto;
-  width: 400px;
-  border: 1px solid #000;
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-
-  h1 {
-    margin-bottom: 10px;
-    text-decoration: underline;
-  }
-
-  p {
-    margin-bottom: 10px;
-  }
-
-  button {
-    padding: 10px 15px;
-    margin: 0 10px;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
-  }
-
-  .delete-btn {
-    background-color: #FF0A00;
-
-    &:hover {
-      background-color: #a40500;
-    }
-  }
-
-  .modify-btn {
-    background-color: #037BFF;
-
-    &:hover {
-      background-color: #0051a8;
     }
   }
 }
@@ -242,9 +344,9 @@ form {
   align-items: center;
 
   .modal {
-    background-color: #fff;
+    background-color: var(--col-white);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
     text-align: center;
 
     .modal-btn {

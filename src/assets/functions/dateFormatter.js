@@ -9,8 +9,9 @@ function formatDateTimeLocale(isoString) {
 	const minutes = String(date.getMinutes()).padStart(2, '0');
 
 	return {
-		data: `${day}/${month}/${year}`,
-		ora: `${hours}:${minutes}`
+		ora: `${hours}:${minutes}`,
+		month: `${day}/${month}`,
+		year: `${year}`
 	};
 }
 
