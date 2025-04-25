@@ -1,9 +1,12 @@
+// React utility
 import { memo } from "react";
 import { Link } from "react-router-dom";
+// Function utility:
 import formatDateTimeLocale from "../assets/functions/dateFormatter";
 
 function Task({ taskData }) {
 	const { id, title, status, createdAt } = taskData;
+	
 	// Richiamo funzione di formattazione data:
 	const date = formatDateTimeLocale(createdAt);
 
@@ -16,7 +19,8 @@ function Task({ taskData }) {
 	} else {
 		toDoColor = "#4eb94e"
 	}
-
+	
+	//======================================================================
 	return (
 		<>
 			<Link to={`/task-detail/${id}`}>
@@ -28,7 +32,7 @@ function Task({ taskData }) {
 						<p>{title}</p>
 					</div>
 					<div className="task-date">
-						<p><span>{date.ora}</span>{date.month}</p>
+						<p><span>{date.time}</span>{date.month}</p>
 					</div>
 				</div>
 			</Link>

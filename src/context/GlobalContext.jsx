@@ -1,10 +1,13 @@
+// Axios: 
 import axios from "axios";
+// React utility:
 import { useState, useContext, createContext, useEffect } from "react";
 
-// Definizione di un nuovo context
+// Definizione di un nuovo context:
 const TasksDataContext = createContext();
 
 const TasksProvider = ({ children }) => {
+	// Default API url import:
 	const apiUrl = import.meta.env.VITE_API_URL;
 
 	// HOOK personalizzato per gestire le tasks:
@@ -13,7 +16,8 @@ const TasksProvider = ({ children }) => {
 		const [tasks, setTasks] = useState([]);
 		// ==STATE== messaggio di riusltato all'agiunta di nuove task:
 		const [resultMessage, setResultMessage] = useState({ message: "", status: null });
-		// [GET] Chiamata per ricevere la lista delle task
+		// ==========================[API CALLS]=============================
+		// [GET] Chiamata per ricevere la lista delle task:
 		const fetchTasks = async () => {
 			try {
 				const fetchResponse = await axios.get(`${apiUrl}/tasks`);
@@ -22,11 +26,11 @@ const TasksProvider = ({ children }) => {
 				console.error("Errore durante il caricamento delle task:", error)
 			}
 		}
-		// La funzione fetchTask viene immediatamente invocata al caricamento dell'app
+		// Funzione fetchTask viene immediatamente invocata al caricamento dell'app:
 		useEffect(() => {
 			fetchTasks()
 		}, [])
-		// [POST] Chiamata per aggiungere una task
+		// [POST] Chiamata per aggiungere una task:
 		const addTask = async (newTask) => {
 			const response = await axios.post(`${apiUrl}/tasks`, newTask, { headers: { 'content-Type': 'application/json' } })
 			if (response.data.success) {
@@ -40,7 +44,7 @@ const TasksProvider = ({ children }) => {
 				throw new Error(response.data.message)
 			}
 		}
-		// [DELETE] Chiamata per rimuovere una task
+		// [DELETE] Chiamata per rimuovere una task:
 		const removeTask = async (taskId) => {
 			const response = await axios.delete(`${apiUrl}/tasks/${taskId}`);
 			if (response.data.success) {
@@ -52,7 +56,7 @@ const TasksProvider = ({ children }) => {
 				throw new Error(response.data.message)
 			}
 		}
-		// [PUT] Chiamata per modificare una task
+		// [PUT] Chiamata per modificare una task:
 		const updateTask = async (updatedTask, taskId) => {
 			const response = await axios.put(`${apiUrl}/tasks/${taskId}`, updatedTask, { headers: { 'content-Type': 'application/json' } });
 			if (response.data.success) {
@@ -66,7 +70,7 @@ const TasksProvider = ({ children }) => {
 				throw new Error(response.data.message)
 			}
 		}
-
+		// ==========================[/API CALLS]=============================
 		return { tasks, resultMessage, setResultMessage, addTask, removeTask, updateTask };
 	}
 
@@ -77,6 +81,7 @@ const TasksProvider = ({ children }) => {
 	)
 }
 
+// Pre useContext function:
 const useTasksDataContext = () => {
 	return useContext(TasksDataContext)
 }

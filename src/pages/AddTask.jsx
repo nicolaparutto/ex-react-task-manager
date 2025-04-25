@@ -1,5 +1,8 @@
+// React utility
 import { useState, useRef, useEffect, useMemo } from "react";
+// GlobalContext:
 import { useTasksDataContext } from "../context/GlobalContext";
+
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
 
 function AddTask() {
@@ -11,6 +14,7 @@ function AddTask() {
 	const [taskTitle, setTaskTitle] = useState("");
 	const descriptionRef = useRef("");
 	const statusRef = useRef("");
+	// Messaggio validazione campi:
 	const [inputErrMessage, setInputErrMessage] = useState("");
 
 	// Validazioni titolo in tempo reale:
@@ -61,6 +65,7 @@ function AddTask() {
 		}
 	}, [resultMessage]);
 
+	//======================================================================
 	return (
 		<section className="container">
 			<form action="#" onSubmit={handleSubmit}>

@@ -1,3 +1,4 @@
+/* Google fonts import */
 @import url('https://fonts.googleapis.com/css2?family=Chewy&family=National+Park:wght@200..800&display=swap');
 
 /* css reset */
@@ -33,11 +34,7 @@ a {
   color: black;
 }
 
-/* utility */
-.debug {
-  border: 1px dashed red;
-}
-
+/* ======= MAIN STYLE ======= */
 .main-container {
   width: 700px;
   height: 700px;
@@ -48,7 +45,7 @@ a {
   box-shadow: 10px 10px 5px var(--col-dark-pink);
 }
 
-/* header style */
+/* ------- header ------- */
 header {
   h1 {
     font-family: "Chewy", system-ui;
@@ -98,7 +95,7 @@ header {
   }
 }
 
-/* tasks-list-section style */
+/* ------- tasks-list-section ------- */
 .tasks-search-bar {
   text-align: center;
   margin: 30px 0;
@@ -201,7 +198,7 @@ header {
   }
 }
 
-/* task-details section style */
+/* ------- task-details section ------- */
 .taskdetail {
   border: 2px solid var(--col-green);
   border-radius: 20px;
@@ -272,7 +269,7 @@ header {
   }
 }
 
-/* add task form style */
+/* ------- add task form ------- */
 form {
   border: 2px solid var(--col-green);
   border-radius: 20px;
@@ -336,7 +333,7 @@ form {
   }
 }
 
-/* modal reusable component style */
+/* ------- modal reusable component ------- */
 .modal-container {
   position: fixed;
   top: 0;

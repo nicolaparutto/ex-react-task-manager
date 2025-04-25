@@ -1,4 +1,4 @@
-// funzione di debouce generica
+// Funzione di debouce generica
 function debounce(callback, delay) {
 	let timer;
 	return (value) => {

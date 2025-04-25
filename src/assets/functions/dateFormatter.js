@@ -1,3 +1,4 @@
+// Funzione riutilizzabile per formattare date, restituisce un oggetto {time, month, year}
 function formatDateTimeLocale(isoString) {
 	const date = new Date(isoString);
 
@@ -9,7 +10,7 @@ function formatDateTimeLocale(isoString) {
 	const minutes = String(date.getMinutes()).padStart(2, '0');
 
 	return {
-		ora: `${hours}:${minutes}`,
+		time: `${hours}:${minutes}`,
 		month: `${day}/${month}`,
 		year: `${year}`
 	};

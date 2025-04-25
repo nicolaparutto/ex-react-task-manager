@@ -1,13 +1,15 @@
+// React utility:
 import { createPortal } from "react-dom";
 
 function Modal({
-	title, //titolo della modale
-	content, //contenuto principale della modale.
-	show = false, //stato booleano per visualizzarla
-	onClose = () => { }, //funzione per chiudere la modale
-	onConfirm = () => { }, //funzione per confermare la modale
-	confirmText = "Conferma"// testo del bottone di conferma (default: "Conferma")
+	title, // Titolo della modale
+	content, // Contenuto principale della modale.
+	show = false, // Stato booleano per visualizzarla
+	onClose = () => { }, // Funzione per chiudere la modale
+	onConfirm = () => { }, // Funzione per confermare la modale
+	confirmText = "Conferma"// Testo del bottone di conferma (default: "Conferma")
 }) {
+	//======================================================================
 	return show && createPortal(
 		<div className="modal-container">
 			<div className="modal">

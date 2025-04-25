@@ -1,18 +1,21 @@
+// React utility:
 import { useState, useRef, useEffect } from "react";
+// Components:
 import Modal from "./Modal";
 
 function EditTaskModal({
-	show = false, //stato booleano per visualizzarla
-	onClose = () => { }, //funzione per chiudere la modale
-	task, //oggetto che rappresenta il task da modificare
-	onSave = () => { } //funzione per salvare ed inviare la task modificata
+	show = false, // Stato booleano per visualizzarla
+	onClose = () => { }, // Funzione per chiudere la modale
+	task, // Oggetto che rappresenta il task da modificare
+	onSave = () => { } //Funzione per salvare ed inviare la task modificata
 }) {
 
 	// State della task da modificare:
 	const [taskModified, setTaskModified] = useState(task);
+	// Ref al form della modale:
 	const formRef = useRef();
 
-	// Funzione che aggiorna la taskModificata a lchange del form:
+	// Funzione che aggiorna la taskModificata al change del form:
 	function changeTaskData(key, value) {
 		setTaskModified(prev => {
 			return { ...prev, [key]: value }
@@ -30,12 +33,15 @@ function EditTaskModal({
 			alert(error.message)
 		}
 	}
+
 	// useEffect al cambiamento della prop task, che valorizza taskModified:
 	useEffect(() => {
 		if (task) {
 			setTaskModified(task);
 		}
 	}, [task]);
+	
+	//======================================================================
 	return show && (
 		<Modal
 			show={show}
