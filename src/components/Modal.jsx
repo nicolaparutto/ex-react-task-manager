@@ -2,12 +2,12 @@
 import { createPortal } from "react-dom";
 
 function Modal({
-	title, // Titolo della modale
+	title, // Titolo della modale.
 	content, // Contenuto principale della modale.
-	show = false, // Stato booleano per visualizzarla
-	onClose = () => { }, // Funzione per chiudere la modale
-	onConfirm = () => { }, // Funzione per confermare la modale
-	confirmText = "Conferma"// Testo del bottone di conferma (default: "Conferma")
+	show = false, // Stato booleano per visualizzarla.
+	onClose = () => { }, // Funzione per chiudere la modale.
+	onConfirm = () => { }, // Funzione per confermare la modale.
+	confirmText = "Conferma"// Testo del bottone di conferma (default: "Conferma").
 }) {
 	//======================================================================
 	return show && createPortal(

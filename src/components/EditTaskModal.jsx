@@ -4,10 +4,10 @@ import { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
 
 function EditTaskModal({
-	show = false, // Stato booleano per visualizzarla
-	onClose = () => { }, // Funzione per chiudere la modale
-	task, // Oggetto che rappresenta il task da modificare
-	onSave = () => { } //Funzione per salvare ed inviare la task modificata
+	show = false, // Stato booleano per visualizzarla.
+	onClose = () => { }, // Funzione per chiudere la modale.
+	task, // Oggetto che rappresenta il task da modificare.
+	onSave = () => { } //Funzione per salvare ed inviare la task modificata.
 }) {
 
 	// State della task da modificare:

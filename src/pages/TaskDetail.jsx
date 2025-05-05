@@ -19,6 +19,7 @@ function TaskDetail() {
 	// Gestione Modal:
 	const [show, setShow] = useState(false);
 	const [showEditTask, setShowEditTask] = useState(false);
+	
 	// Task da modificare:
 	const [taskToModify, setTaskToModify] = useState({});
 

@@ -1,8 +1,8 @@
-// React utility
+// React utility:
 import { useState, useRef, useEffect, useMemo } from "react";
 // GlobalContext:
 import { useTasksDataContext } from "../context/GlobalContext";
-
+// Symbols per validazioni form:
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~";
 
 function AddTask() {
